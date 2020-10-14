@@ -21,21 +21,27 @@ from airflow.operators.bash_operator import BashOperator
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2020, 8, 10)
+    "start_date": datetime(2020, 10, 1)
 }
 
 
-with DAG(dag_id="dummy_telescope", schedule_interval="@daily", default_args=default_args, catchup=True) as dag:
-    task1 = BashOperator(
-        task_id="task1",
+with DAG(dag_id="telescope_2", schedule_interval="@weekly", default_args=default_args) as dag:
+    extract = BashOperator(
+        task_id="extract",
         bash_command="echo 'hello'",
         queue='remote_queue'
     )
 
-    task2 = BashOperator(
-        task_id="task2",
-        bash_command="echo 'world'",
+    transform = BashOperator(
+        task_id="transform",
+        bash_command="echo 'eresearch'",
         queue='remote_queue'
     )
 
-    task1 >> task2
+    load = BashOperator(
+        task_id="load",
+        bash_command="echo 'conference'",
+        queue='remote_queue'
+    )
+
+    extract >> transform >> load

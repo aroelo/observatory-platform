@@ -29,7 +29,7 @@ default_args = {
 }
 
 
-with DAG(dag_id=TerraformTelescope.DAG_ID_DESTROY_VM, schedule_interval="*/10 * * * *", default_args=default_args,
+with DAG(dag_id=TerraformTelescope.DAG_ID_DESTROY_VM, schedule_interval="*/2 * * * *", default_args=default_args,
          catchup=False, max_active_runs=1) as dag:
     # Check that dependencies exist before starting
     check = PythonOperator(

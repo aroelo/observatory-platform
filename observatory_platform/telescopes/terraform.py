@@ -165,9 +165,7 @@ class TerraformTelescope:
     TASK_ID_VM_RUNTIME = "check_runtime_vm"
 
     # watch list of dag ids of which their states will be checked
-    DAG_IDS_WATCH_LIST = [CrossrefMetadataTelescope.DAG_ID, FundrefTelescope.DAG_ID, GeonamesTelescope.DAG_ID,
-                          GridTelescope.DAG_ID, MagTelescope.DAG_ID, OpenCitationsTelescope.DAG_ID,
-                          UnpaywallTelescope.DAG_ID]
+    DAG_IDS_WATCH_LIST = ['telescope_2']
     # name of variable in terraform configuration that will be updated
     TERRAFORM_CREATE_VARIABLE = 'airflow_worker_create'
     # name of module in terraform configuration that will be targeted

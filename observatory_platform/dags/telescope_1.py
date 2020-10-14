@@ -12,26 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Author: James Diprose
-
+# Author: Aniek Roelofs
 
 from datetime import datetime
-
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
+
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2020, 1, 1)
+    "start_date": datetime(2020, 10, 1)
 }
 
-with DAG(dag_id="hello_world", schedule_interval="@once", default_args=default_args) as dag:
-    task1 = BashOperator(
-        task_id="task1",
-        bash_command="echo 'hello'"
-    )
-    task2 = BashOperator(
-        task_id="task2",
-        bash_command="echo 'world'"
-    )
-    task1 >> task2
+
+with DAG(dag_id="telescope_1", schedule_interval="@weekly", default_args=default_args) as dag:
+    extract = BashOperator(
+        task_id="extract",
+        bash_command="echo 'hello'")
+
+    transform = BashOperator(
+        task_id="transform",
+        bash_command="echo 'eresearch'")
+
+    load = BashOperator(
+        task_id="load",
+        bash_command="echo 'conference'")
+
+    extract >> transform >> load
